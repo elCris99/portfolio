@@ -1,0 +1,98 @@
+@use "../../styles/abstracts" as *;
+
+.navbar {
+  color: $navbar-color;
+  background-color: $navbar-background-color;
+  padding: $navbar-padding;
+
+  &__inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+
+    @include mq(medium) {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &__brand {
+    color: $navbar-color;
+    text-decoration: none;
+  }
+
+  &__links {
+    display: none;
+    gap: $navbar-link-gap;
+
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    @include text-role(nav);
+
+    .navbar[data-menu-open="true"] & {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+
+      grid-column: 1 / -1;
+      min-height: 100dvh;
+    }
+
+    @include mq(medium) {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      min-height: auto;
+      grid-column: auto;
+    }
+
+    a {
+      color: $navbar-link-color;
+      text-decoration: $navbar-link-text-decoration;
+
+      &:is(:hover, :focus) {
+        color: $navbar-link-color-hover;
+      }
+    }
+  }
+
+  &__menu-toggle {
+    @include text-role(nav);
+
+    display: block;
+    padding: $navbar-toggle-padding;
+    color: $navbar-toggle-color;
+    background-color: $navbar-toggle-background;
+    border: $navbar-toggle-border;
+    border-radius: $navbar-toggle-border-radius;
+    cursor: pointer;
+
+    transition:
+      color 150ms ease,
+      background-color 150ms ease;
+
+    svg {
+      display: block;
+      width: $navbar-toggle-size;
+      height: $navbar-toggle-size;
+      fill: currentColor;
+    }
+
+    &:hover {
+      color: $navbar-toggle-color-hover;
+      background-color: $navbar-toggle-background-hover;
+    }
+
+    &:focus-visible {
+      outline: 3px solid currentColor;
+      outline-offset: 3px;
+    }
+
+    @include mq(medium) {
+      display: none;
+    }
+  }
+}

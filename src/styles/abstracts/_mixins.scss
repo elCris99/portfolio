@@ -1,0 +1,247 @@
+@use "sass:meta";
+@use "sass:math";
+@use "sass:map";
+@use "sass:list";
+@use "breakpoints" as *;
+@use "tokens" as *;
+@use "typography" as *;
+
+@mixin mq($size) {
+  @if map.has-key($breakpoints, $size) {
+    $breakpoint: map.get($breakpoints, $size);
+    @media screen and (min-width: $breakpoint) {
+      @content;
+    }
+  } @else if meta.type-of($size) == number {
+    @if math.is-unitless($size) {
+      @error 'when using a number with @mq() make sure to include a unit';
+    } @else {
+      @media screen and (min-width: $size) {
+        @content;
+      }
+    }
+  } @else {
+    @error 'the keyword #{$size} is not in the $breakpoints map';
+  }
+}
+
+@mixin heading($text-preset, $color: $heading-color-default) {
+  color: $color;
+  text-transform: $heading-text-transform;
+
+  @include text-role($text-preset);
+}
+
+
+//? --------------------------------------------
+//* TEXT-ROLE
+//? --------------------------------------------
+//? Questo è il mixin principale del sistema tipografico.
+//?
+//? Funziona così:
+//?
+//? 1. riceve un "role semantico"
+//?    es: heading-1, body, caption
+//?
+//? 2. cerca il mapping nel $text-role-map
+//?
+//? 3. per ogni breakpoint:
+//?    - small → applica direttamente
+//?    - medium/large → usa media query
+//?
+//? 4. applica il preset tramite apply-text-set
+//?
+//? --------------------------------------------
+//? ESEMPIO:
+//?
+//? @include text-role("heading-1");
+//?
+//? genera:
+//?   small  → heading-lg
+//?   medium → heading-xl
+//?   large  → heading-xl
+//? --------------------------------------------
+@mixin text-role($role) {
+  $role-map: map.get($text-role-map, $role);
+
+  @if not $role-map {
+    @error "text-role '#{$role}' non trovato in $text-role-map";
+  }
+
+  @each $bp, $set-name in $role-map {
+
+    // MOBILE FIRST (base styles)
+    @if $bp == small {
+      @include apply-text-set($set-name);
+
+    // BREAKPOINTS (medium, large, ecc.)
+    } @else {
+      @include mq($bp) {
+        @include apply-text-set($set-name);
+      }
+    }
+  }
+}
+
+//? --------------------------------------------
+//* APPLY-TEXT-SET
+//? --------------------------------------------
+//? Applica un "text preset" tramite CSS variables.
+//?
+//? Questo mixin NON decide la logica tipografica.
+//? Si limita a "tradurre" un preset in CSS.
+//?
+//? In pratica:
+//? heading-xl → diventa font-size, line-height, ecc.
+//?
+//? Tutti i valori arrivano da :root come CSS variables.
+//? --------------------------------------------
+@mixin apply-text-set($set-name) {
+  font-size: var(--#{$set-name}-fs);
+  line-height: var(--#{$set-name}-lh);
+  letter-spacing: var(--#{$set-name}-ls);
+  font-family: var(--#{$set-name}-ff);
+  font-weight: var(--#{$set-name}-fw);
+}
+
+//* Mixin: responsive-spacing
+//? ========================================
+//? Scopo:
+//? Applicare una proprietà CSS (es. margin, padding, gap, ecc.)
+//? in modo responsive (mobile-first), con supporto a:
+//?
+//? - LISTE → per casi semplici e completi
+//? - MAP → per controllo più granulare dei breakpoint
+//?
+//? ----------------------------------------
+//? ✅ ESEMPI DI UTILIZZO
+//? ----------------------------------------
+//?
+//? 1. Lista completa (small, medium, large)
+//? ----------------------------------------
+//? @include responsive-spacing(margin, 10px, 20px, 40px);
+//?
+//? Output:
+//? margin: 10px;
+//? @media (medium) { margin: 20px; }
+//? @media (large)  { margin: 40px; }
+//?
+//?
+//? 2. Lista da variabile (richiede "...") 
+//? ----------------------------------------
+//? $spacing: (10px, 20px, 40px);
+//? @include responsive-spacing(margin, $spacing...);
+//?
+//? ⚠️ Nota:
+//? "..." spacchetta la lista in argomenti multipli
+//?
+//?
+//? 3. Map completa
+//? ----------------------------------------
+//? @include responsive-spacing(padding, (
+//?   small: 10px,
+//?   medium: 20px,
+//?   large: 40px
+//? ));
+//?
+//?
+//? 4. Map parziale (solo breakpoint necessari)
+//? ----------------------------------------
+//? @include responsive-spacing(gap, (
+//?   small: 8px,
+//?   large: 32px
+//? ));
+//?
+//? Output:
+//? gap: 8px;
+//? @media (large) { gap: 32px; }
+//?
+//?
+//? 5. Map da variabile
+//? ----------------------------------------
+//? $gap-map: (small: 8px, large: 32px);
+//? @include responsive-spacing(gap, $gap-map);
+//?
+//?
+//? ----------------------------------------
+//? 🧠 NOTE IMPORTANTI
+//? ----------------------------------------
+//? - Il primo valore (o "small") è sempre il base (mobile-first)
+//? - I breakpoint sono gestiti dalla mixin `mq()`
+//? - Le map permettono di evitare media query inutili
+//?
+//? ----------------------------------------
+//? PARAMETRI
+//? ----------------------------------------
+//? $property → proprietà CSS (stringa o identificatore)
+//? $values... → lista di valori oppure una map
+//?
+
+@mixin responsive-spacing($property, $values...) {
+  // Prende il primo argomento
+  // list.nth($values, 1) → prende il primo elemento della lista $values
+  $first: list.nth($values, 1);
+  // meta.type-of() → restituisce il tipo (string, number, list, map, ecc.)
+  @if meta.type-of($first) == "map" {
+    //* ----------------------------------------
+    //* 🗺️ CASO MAP
+    //* ----------------------------------------
+    // Itera su ogni coppia chiave/valore della map
+    // $bp = breakpoint (es. small, medium, large)
+    // $value = valore CSS
+    @each $bp, $value in $first {
+      // Se il breakpoint è "small"
+      // → applica direttamente senza media query (base mobile-first)
+      @if $bp == small {
+        &{
+          // #{$property} → interpolazione (trasforma stringa in proprietà CSS)
+          #{$property}: $value;
+        }
+      } @else {
+        // Per gli altri breakpoint:
+        // usa la mixin mq() per creare la media query
+        @include mq($bp) {
+          #{$property}: $value;
+        }
+      }
+    }
+  } @else {
+    //* ----------------------------------------
+    //* Caso LISTA (metodo classico)
+    //* ----------------------------------------
+    // Inizializzazione
+    $small: null;
+    $medium: null;
+    $large: null;
+
+    // Estrazione valori
+    @if list.length($values) >= 1 {
+      $small: list.nth($values, 1);
+    }
+
+    @if list.length($values) >= 2 {
+      $medium: list.nth($values, 2);
+    }
+
+    @if list.length($values) >= 3 {
+      $large: list.nth($values, 3);
+    }
+
+    // Small (mobile-first)
+    & {
+      #{$property}: $small;
+    }
+    // Se esiste il valore per medium → genera media query
+    @if $medium != null {
+      @include mq(medium) {
+        #{$property}: $medium;
+      }
+    }
+    // Se esiste il valore per large → genera media query
+    @if $large != null {
+      @include mq(large) {
+        #{$property}: $large;
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+@use "sass:map";
+@use "../abstracts" as *;
+
+:root {
+  @each $name, $value in $breakpoints {
+    --bp-#{$name}: #{$value};
+  }
+
+  @each $size-name, $size-value in $font-sizes {
+    --fs-#{$size-name}: #{$size-value};
+  }
+
+  @each $size-name, $size-value in $line-heights {
+    --lh-#{$size-name}: #{$size-value};
+  }
+
+  @each $size-name, $size-value in $letter-spacings {
+    --ls-#{$size-name}: #{$size-value};
+  }
+
+  @each $color, $shade-map in $active-theme {
+    @each $shade, $value in $shade-map {
+      --#{$color}-#{$shade}: #{$value};
+    }
+  }
+
+  @if ($enable-media-query-dark-mode) {
+    @media (prefers-color-scheme: dark) {
+      @each $color, $shade-map in $dark {
+        @each $shade, $value in $shade-map {
+          --#{$color}-#{$shade}: #{$value};
+        }
+      }
+    }
+  }
+
+  @each $set-name, $values in $text-presets {
+    --#{$set-name}-fs: #{map.get($values, "fs")};
+    --#{$set-name}-lh: #{map.get($values, "lh")};
+    --#{$set-name}-ls: #{map.get($values, "ls")};
+    --#{$set-name}-ff: #{map.get($values, "ff")};
+    --#{$set-name}-fw: #{map.get($values, "fw")};
+  }
+}
