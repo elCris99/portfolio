@@ -1,89 +1,143 @@
-$-ff-sans: system-ui, sans-serif;
+$-ff-sans: "DejaVu Sans", system-ui, sans-serif;
 $-ff-serif: serif;
-
 $font-family-base: $-ff-sans;
 $font-family-accent: $-ff-sans;
 
+// Scale originali conservate; inseriti gli intermedi richiesti dal design.
 $font-sizes: (
+  "050": 0.6875rem,
+  // 11px
   "100": 0.75rem,
   // 12px
+  "150": 0.8125rem,
+  // 13px
   "200": 0.875rem,
   // 14px
   "300": 0.9375rem,
   // 15px
   "400": 1rem,
-  // 16px (base)
+  // 16px
   "500": 1.125rem,
   // 18px
   "600": 1.25rem,
   // 20px
   "700": 1.5rem,
   // 24px
+  "725": 1.625rem,
+  // 26px
+  "750": 1.75rem,
+  // 28px
+  "775": 1.875rem,
+  // 30px
   "800": 2rem,
   // 32px
+  "825": 2.125rem,
+  // 34px
+  "850": 2.25rem,
+  // 36px
+  "875": 2.375rem,
+  // 38px
   "900": 2.5rem,
   // 40px
+  "950": 2.75rem,
+  // 44px
   "1000": 3rem,
   // 48px
-  "1100": 3.75rem, // 60px
+  "1100": 3.75rem,
+  // 60px
+  "1150": 4rem,
+  // 64px; monogramma provvisorio
+  "1200": 4.5rem,
+  // 72px
+  "1300": 5rem, // 80px
 );
 
+$font-size-050: var(--fs-050);
 $font-size-100: var(--fs-100);
+$font-size-150: var(--fs-150);
 $font-size-200: var(--fs-200);
 $font-size-300: var(--fs-300);
 $font-size-400: var(--fs-400);
 $font-size-500: var(--fs-500);
 $font-size-600: var(--fs-600);
 $font-size-700: var(--fs-700);
+$font-size-725: var(--fs-725);
+$font-size-750: var(--fs-750);
+$font-size-775: var(--fs-775);
 $font-size-800: var(--fs-800);
+$font-size-825: var(--fs-825);
+$font-size-850: var(--fs-850);
+$font-size-875: var(--fs-875);
 $font-size-900: var(--fs-900);
+$font-size-950: var(--fs-950);
 $font-size-1000: var(--fs-1000);
 $font-size-1100: var(--fs-1100);
+$font-size-1150: var(--fs-1150);
+$font-size-1200: var(--fs-1200);
+$font-size-1300: var(--fs-1300);
 
 $line-heights: (
+  "050": 1.05,
+  "080": 1.08,
   "100": 1.1,
+  "150": 1.15,
   "200": 1.2,
   "225": 1.25,
   "300": 1.3,
   "400": 1.4,
   "500": 1.5,
   "600": 1.6,
+  "650": 1.65,
   "700": 1.7,
   "800": 1.8,
   "900": 1.9,
 );
 
+$line-height-050: var(--lh-050);
+$line-height-080: var(--lh-080);
 $line-height-100: var(--lh-100);
+$line-height-150: var(--lh-150);
 $line-height-200: var(--lh-200);
 $line-height-225: var(--lh-225);
 $line-height-300: var(--lh-300);
 $line-height-400: var(--lh-400);
 $line-height-500: var(--lh-500);
 $line-height-600: var(--lh-600);
+$line-height-650: var(--lh-650);
 $line-height-700: var(--lh-700);
 $line-height-800: var(--lh-800);
 $line-height-900: var(--lh-900);
 
+// Tracking: scale in em della template mantenute.
+// I nuovi valori in rem riproducono i titoli del mockup (-3px, -1px, ecc.).
+// Le etichette maiuscole usano em: la spaziatura segue la dimensione del testo.
 $letter-spacings: (
+  "025": -0.25rem,
+  "050": -0.1875rem,
+  "075": -0.15625rem,
+  "090": -0.109375rem,
+  "095": -0.09375rem,
   "100": -0.02em,
-  // ≈ -0.32px @ 16px → molto tight (hero headings, bold grandi)
   "200": -0.015em,
-  // ≈ -0.24px → tight
   "300": -0.01em,
-  // ≈ -0.16px → leggermente compatto
   "400": -0.005em,
-  // ≈ -0.08px → quasi neutro (micro-adjust)
   "500": 0em,
-  // 0px → default
   "600": 0.01em,
-  // ≈ 0.16px → leggermente aperto
   "700": 0.02em,
-  // ≈ 0.32px → aperto (label, UI text)
   "800": 0.04em,
-  // ≈ 0.64px → molto aperto (uppercase)
-  "900": 0.06em, // ≈ 0.96px → extra aperto (overline, small caps)
+  "900": 0.06em,
+  "1000": 0.12em,
+  "1100": 0.14em,
+  "fixed-100": -0.0625rem,
+  "fixed-075": -0.046875rem,
+  "fixed-050": -0.03125rem,
 );
 
+$letter-spacing-025: var(--ls-025);
+$letter-spacing-050: var(--ls-050);
+$letter-spacing-075: var(--ls-075);
+$letter-spacing-090: var(--ls-090);
+$letter-spacing-095: var(--ls-095);
 $letter-spacing-100: var(--ls-100);
 $letter-spacing-200: var(--ls-200);
 $letter-spacing-300: var(--ls-300);
@@ -93,163 +147,323 @@ $letter-spacing-600: var(--ls-600);
 $letter-spacing-700: var(--ls-700);
 $letter-spacing-800: var(--ls-800);
 $letter-spacing-900: var(--ls-900);
+$letter-spacing-1000: var(--ls-1000);
+$letter-spacing-1100: var(--ls-1100);
+$letter-spacing-fixed-100: var(--ls-fixed-100);
+$letter-spacing-fixed-075: var(--ls-fixed-075);
+$letter-spacing-fixed-050: var(--ls-fixed-050);
 
 $-fw-400: 400;
 $-fw-500: 500;
 $-fw-700: 700;
-
 $font-weight-default: $-fw-400;
-$font-weight-semi-bold: $-fw-500;
+$font-weight-medium: $-fw-500;
+// Alias mantenuto per compatibilità: 500 corrisponde al peso Medium.
+$font-weight-semi-bold: $font-weight-medium;
 $font-weight-bold: $-fw-700;
 
+// Preset atomici. I ruoli responsive si trovano nella mappa successiva.
 $text-presets: (
-  // 🔹 HEADINGS
-  "heading-xl": (
-      "fs": $font-size-1000,
-      "lh": $line-height-200,
-      "ls": $letter-spacing-100,
-      "ff": $font-family-base,
-      "fw": $font-weight-bold,
-    ),
-
-  "heading-lg": (
-    "fs": $font-size-800,
-    "lh": $line-height-300,
-    "ls": $letter-spacing-200,
+  "hero-xs": (
+    "fs": $font-size-875,
+    "lh": $line-height-080,
+    "ls": $letter-spacing-090,
     "ff": $font-family-base,
     "fw": $font-weight-bold,
   ),
-
+  "hero-sm": (
+    "fs": $font-size-950,
+    "lh": $line-height-080,
+    "ls": $letter-spacing-090,
+    "ff": $font-family-base,
+    "fw": $font-weight-bold,
+  ),
+  "hero-md": (
+    "fs": $font-size-1100,
+    "lh": $line-height-050,
+    "ls": $letter-spacing-075,
+    "ff": $font-family-base,
+    "fw": $font-weight-bold,
+  ),
+  "hero-lg": (
+    "fs": $font-size-1200,
+    "lh": $line-height-050,
+    "ls": $letter-spacing-050,
+    "ff": $font-family-base,
+    "fw": $font-weight-bold,
+  ),
+  "heading-xl": (
+    "fs": $font-size-950,
+    "lh": $line-height-150,
+    "ls": $letter-spacing-095,
+    "ff": $font-family-base,
+    "fw": $font-weight-bold,
+  ),
+  "heading-lg": (
+    "fs": $font-size-850,
+    "lh": $line-height-200,
+    "ls": $letter-spacing-fixed-100,
+    "ff": $font-family-base,
+    "fw": $font-weight-bold,
+  ),
   "heading-md": (
-    "fs": $font-size-700,
-    "lh": $line-height-300,
-    "ls": $letter-spacing-300,
+    "fs": $font-size-775,
+    "lh": $line-height-200,
+    "ls": $letter-spacing-fixed-075,
     "ff": $font-family-base,
-    "fw": $font-weight-semi-bold,
+    "fw": $font-weight-bold,
   ),
-
   "heading-sm": (
-    "fs": $font-size-600,
-    "lh": $line-height-400,
-    "ls": $letter-spacing-400,
+    "fs": $font-size-725,
+    "lh": $line-height-200,
+    "ls": $letter-spacing-fixed-075,
     "ff": $font-family-base,
-    "fw": $font-weight-semi-bold,
+    "fw": $font-weight-bold,
   ),
-
-  // 🔹 BODY
+  "section-sm": (
+    "fs": $font-size-825,
+    "lh": $line-height-150,
+    "ls": $letter-spacing-fixed-100,
+    "ff": $font-family-base,
+    "fw": $font-weight-bold,
+  ),
+  "profile-sm": (
+    "fs": $font-size-750,
+    "lh": $line-height-200,
+    "ls": $letter-spacing-fixed-100,
+    "ff": $font-family-base,
+    "fw": $font-weight-bold,
+  ),
+  "contact-sm": (
+    "fs": $font-size-800,
+    "lh": $line-height-200,
+    "ls": $letter-spacing-fixed-100,
+    "ff": $font-family-base,
+    "fw": $font-weight-bold,
+  ),
+  "contact-lg": (
+    "fs": $font-size-950,
+    "lh": $line-height-200,
+    "ls": $letter-spacing-095,
+    "ff": $font-family-base,
+    "fw": $font-weight-bold,
+  ),
   "body-lg": (
-      "fs": $font-size-500,
-      "lh": $line-height-500,
-      "ls": $letter-spacing-500,
-      "ff": $font-family-base,
-      "fw": $font-weight-default,
-    ),
-
+    "fs": $font-size-500,
+    "lh": $line-height-650,
+    "ls": $letter-spacing-500,
+    "ff": $font-family-base,
+    "fw": $font-weight-default,
+  ),
   "body-md": (
     "fs": $font-size-400,
+    "lh": $line-height-650,
+    "ls": $letter-spacing-500,
+    "ff": $font-family-base,
+    "fw": $font-weight-default,
+  ),
+  "body-sm": (
+    "fs": $font-size-200,
+    "lh": $line-height-650,
+    "ls": $letter-spacing-500,
+    "ff": $font-family-base,
+    "fw": $font-weight-default,
+  ),
+  "greeting-sm": (
+    "fs": $font-size-500,
     "lh": $line-height-500,
     "ls": $letter-spacing-500,
     "ff": $font-family-base,
     "fw": $font-weight-default,
   ),
-
-  "body-sm": (
-    "fs": $font-size-300,
+  "greeting-lg": (
+    "fs": $font-size-600,
     "lh": $line-height-500,
-    "ls": $letter-spacing-600,
+    "ls": $letter-spacing-500,
     "ff": $font-family-base,
     "fw": $font-weight-default,
   ),
-
-  // 🔹 UI / LABELS
   "label": (
-      "fs": $font-size-300,
-      "lh": $line-height-400,
-      "ls": $letter-spacing-700,
-      "ff": $font-family-base,
-      "fw": $font-weight-semi-bold,
-    ),
-
-  "nav": (
-    "fs": $font-size-300,
-    "lh": $line-height-400,
-    "ls": $letter-spacing-700,
-    "ff": $font-family-base,
-    "fw": $font-weight-semi-bold,
-  ),
-
-  "caption": (
     "fs": $font-size-200,
-    "lh": $line-height-400,
-    "ls": $letter-spacing-600,
-    "ff": $font-family-base,
-    "fw": $font-weight-default,
-  ),
-
-  "overline": (
-    "fs": $font-size-200,
-    "lh": $line-height-300,
-    "ls": $letter-spacing-800,
+    "lh": $line-height-650,
+    "ls": $letter-spacing-500,
     "ff": $font-family-base,
     "fw": $font-weight-bold,
-  )
+  ),
+  "hero-action-xs": (
+    "fs": $font-size-100,
+    "lh": $line-height-650,
+    "ls": $letter-spacing-500,
+    "ff": $font-family-base,
+    "fw": $font-weight-bold,
+  ),
+  "hero-action-sm": (
+    "fs": $font-size-150,
+    "lh": $line-height-650,
+    "ls": $letter-spacing-500,
+    "ff": $font-family-base,
+    "fw": $font-weight-bold,
+  ),
+  "nav": (
+    "fs": $font-size-200,
+    "lh": $line-height-650,
+    "ls": $letter-spacing-500,
+    "ff": $font-family-base,
+    "fw": $font-weight-default,
+  ),
+  "menu": (
+    "fs": $font-size-600,
+    "lh": $line-height-650,
+    "ls": $letter-spacing-500,
+    "ff": $font-family-base,
+    "fw": $font-weight-bold,
+  ),
+  "caption": (
+    "fs": $font-size-100,
+    "lh": $line-height-650,
+    "ls": $letter-spacing-500,
+    "ff": $font-family-base,
+    "fw": $font-weight-default,
+  ),
+  "caption-bold": (
+    "fs": $font-size-100,
+    "lh": $line-height-650,
+    "ls": $letter-spacing-500,
+    "ff": $font-family-base,
+    "fw": $font-weight-bold,
+  ),
+  "overline-sm": (
+    "fs": $font-size-050,
+    "lh": $line-height-650,
+    "ls": $letter-spacing-1100,
+    "ff": $font-family-base,
+    "fw": $font-weight-bold,
+  ),
+  "overline": (
+    "fs": $font-size-100,
+    "lh": $line-height-650,
+    "ls": $letter-spacing-1100,
+    "ff": $font-family-base,
+    "fw": $font-weight-bold,
+  ),
+  "project-index": (
+    "fs": $font-size-100,
+    "lh": $line-height-650,
+    "ls": $letter-spacing-1000,
+    "ff": $font-family-base,
+    "fw": $font-weight-bold,
+  ),
+  "brand-sm": (
+    "fs": $font-size-200,
+    "lh": $line-height-650,
+    "ls": $letter-spacing-fixed-050,
+    "ff": $font-family-base,
+    "fw": $font-weight-bold,
+  ),
+  "brand-lg": (
+    "fs": $font-size-400,
+    "lh": $line-height-650,
+    "ls": $letter-spacing-fixed-050,
+    "ff": $font-family-base,
+    "fw": $font-weight-bold,
+  ),
+  "monogram-sm": (
+    "fs": $font-size-1150,
+    "lh": $line-height-100,
+    "ls": $letter-spacing-025,
+    "ff": $font-family-base,
+    "fw": $font-weight-bold,
+  ),
+  "monogram-lg": (
+    "fs": $font-size-1300,
+    "lh": $line-height-100,
+    "ls": $letter-spacing-025,
+    "ff": $font-family-base,
+    "fw": $font-weight-bold,
+  ),
 );
 
+// Ruoli: small è la base mobile-first; medium e large usano mq().
+// Il breakpoint numerico 22.5em è già supportato dal tuo mixin mq().
+// Riproduce il titolo compatto sotto 360px e le CTA hero a 12/13px.
+// Tenere sempre gli override in ordine crescente.
 $text-role-map: (
-  // 🔹 HEADINGS
   "heading-1": (
-      "small": "heading-lg",
-      "medium": "heading-xl",
-      "large": "heading-xl",
-    ),
-
-  "heading-2": (
-    "small": "heading-md",
-    "medium": "heading-lg",
-    "large": "heading-xl",
+    "small": "hero-xs",
+    22.5em: "hero-sm",
+    "medium": "hero-md",
+    "large": "hero-lg",
   ),
-
+  "heading-2": (
+    "small": "section-sm",
+    "medium": "heading-xl",
+  ),
   "heading-3": (
     "small": "heading-sm",
     "medium": "heading-md",
-    "large": "heading-lg",
   ),
-
-  // 🔹 BODY
+  "profile-heading": (
+    "small": "profile-sm",
+    "medium": "heading-lg",
+  ),
+  "contact-heading": (
+    "small": "contact-sm",
+    "medium": "contact-lg",
+  ),
   "body": (
-      "small": "body-md",
-      "medium": "body-lg",
-      "large": "body-lg",
-    ),
-
+    "small": "body-md",
+  ),
+  "lead": (
+    "small": "body-md",
+    "medium": "body-lg",
+  ),
   "body-sm": (
     "small": "body-sm",
-    "medium": "body-sm",
-    "large": "body-md",
   ),
-
-  // 🔹 UI TEXT
+  "greeting": (
+    "small": "greeting-sm",
+    "medium": "greeting-lg",
+  ),
   "label": (
-      "small": "label",
-      "medium": "label",
-      "large": "label",
-    ),
-
+    "small": "label",
+  ),
+  "hero-action": (
+    "small": "hero-action-xs",
+    22.5em: "hero-action-sm",
+    "medium": "label",
+  ),
   "nav": (
     "small": "nav",
-    "medium": "nav",
-    "large": "nav",
   ),
-
+  "menu-nav": (
+    "small": "menu",
+    "large": "body-sm",
+  ),
   "caption": (
     "small": "caption",
-    "medium": "caption",
-    "large": "caption",
   ),
-
+  "footer": (
+    "small": "caption",
+  ),
+  "footer-action": (
+    "small": "caption-bold",
+  ),
   "overline": (
-    "small": "overline",
+    "small": "overline-sm",
     "medium": "overline",
-    "large": "overline",
-  )
+  ),
+  "project-index": (
+    "small": "project-index",
+  ),
+  "brand": (
+    "small": "brand-sm",
+    "medium": "brand-lg",
+  ),
+  "skills": (
+    "small": "label",
+  ),
+  "monogram": (
+    "small": "monogram-sm",
+    "large": "monogram-lg",
+  ),
 );

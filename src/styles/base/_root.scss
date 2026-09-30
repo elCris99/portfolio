@@ -18,20 +18,9 @@
     --ls-#{$size-name}: #{$size-value};
   }
 
-  @each $color, $shade-map in $active-theme {
-    @each $shade, $value in $shade-map {
-      --#{$color}-#{$shade}: #{$value};
-    }
-  }
-
-  @if ($enable-media-query-dark-mode) {
-    @media (prefers-color-scheme: dark) {
-      @each $color, $shade-map in $dark {
-        @each $shade, $value in $shade-map {
-          --#{$color}-#{$shade}: #{$value};
-        }
-      }
-    }
+  color-scheme: light;
+  @each $name, $value in $active-theme {
+    --color-#{$name}: #{$value};
   }
 
   @each $set-name, $values in $text-presets {
@@ -40,5 +29,31 @@
     --#{$set-name}-ls: #{map.get($values, "ls")};
     --#{$set-name}-ff: #{map.get($values, "ff")};
     --#{$set-name}-fw: #{map.get($values, "fw")};
+  }
+}
+
+// Senza scelta esplicita (o con "system"), segue il sistema operativo.
+@if $enable-media-query-dark-mode {
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]):not([data-theme="dark"]) {
+      color-scheme: dark;
+      @each $name, $value in $dark {
+        --color-#{$name}: #{$value};
+      }
+    }
+  }
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  @each $name, $value in $light {
+    --color-#{$name}: #{$value};
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  @each $name, $value in $dark {
+    --color-#{$name}: #{$value};
   }
 }

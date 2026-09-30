@@ -1,0 +1,14 @@
+@use "../abstracts" as *;
+
+.skip-link {
+  position: fixed;
+  inset-block-start: 1rem;
+  inset-inline-start: 1rem;
+  z-index: 1000;
+
+  transform: translateY(calc(-100% - 2rem));
+
+  &:focus-visible {
+    transform: translateY(0);
+  }
+}

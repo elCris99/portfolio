@@ -4,23 +4,24 @@
 @use "sizes" as *;
 @use "tokens" as *;
 
-@function clr($color, $shade, $scheme: $active-theme) {
-  $map: null;
+// Uso normale: clr("action") mantiene il riferimento dinamico al tema.
+// clr("action", "dark") restituisce invece un colore fisso a compilazione.
+@function clr($role, $scheme: null) {
+  $palette: $active-theme;
   @if $scheme == "light" {
-    $map: $light;
+    $palette: $light;
   } @else if $scheme == "dark" {
-    $map: $dark;
-  } @else if $scheme == $active-theme {
-    $map: $active-theme;
-  } @else {
-    @error "unknown scheme";
+    $palette: $dark;
+  } @else if $scheme != null {
+    @error "Tema sconosciuto: #{$scheme}";
   }
-
-  @if map.has-key($map, $color, $shade) {
-    @return map.get($map, $color, $shade);
-  } @else {
-    @error '$colors does not have that color!';
+  @if not map.has-key($palette, $role) {
+    @error "Ruolo colore sconosciuto: #{$role}";
   }
+  @if $scheme == null {
+    @return var(--color-#{$role});
+  }
+  @return map.get($palette, $role);
 }
 
 @function fs($font-size) {

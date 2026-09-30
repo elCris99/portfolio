@@ -3,13 +3,13 @@
 @use "sizes" as *;
 
 $active-theme: $light;
-$enable-media-query-dark-mode: false;
+$enable-media-query-dark-mode: true;
 
 // Contextual
-$color-text-default: $color-neutral-700;
-$color-background-default: $color-primary-100;
-$color-text-interactive-default: $color-accent-400;
-$color-text-interactive-hover: $color-accent-500;
+$color-text-default: $clr-text;
+$color-background-default: $clr-background;
+$color-text-interactive-default: $clr-action;
+$color-text-interactive-hover: $clr-action-hover;
 
 // set to 0 to disable
 $letter-spacing-loose: 0;
@@ -49,7 +49,7 @@ $body-background-color: $color-background-default;
 $link-color: $color-text-interactive-default;
 $link-color-hover: $color-text-interactive-hover;
 
-$heading-color-default: $color-neutral-900;
+$heading-color-default: $color-text-default;
 $heading-text-transform: uppercase;
 
 $heading-1-color: $heading-color-default;
@@ -63,15 +63,17 @@ $flex-group-gap: $size-4;
 $hero-padding-block: clamp(15rem, 15vh, 20rem);
 $section-padding-block: clamp(5rem, 10vh, 6rem);
 
-$container-min-margin-inline: $size-4;
-$container-max-width: 64rem;
+$container-min-margin-inline-small: $size-5;
+$container-min-margin-inline-medium: $size-8;
+$container-min-margin-inline-large: $size-10;
+$container-max-width: 70rem;
 $container-max-width-narrow: 40rem;
 $container-max-width-wide: 75rem;
 
 // navbar
 
-$navbar-background-color: $color-primary-300;
-$navbar-color: $color-neutral-900;
+$navbar-background-color: $color-background-default;
+$navbar-color: $color-text-default;
 $navbar-padding: $size-8 0;
 $navbar-margin: 0;
 
@@ -82,30 +84,31 @@ $navbar-alignment: center;
 // navbar links
 
 $navbar-link-color: $navbar-color;
-$navbar-link-color-hover: $color-neutral-000;
+$navbar-link-color-hover: $clr-action;
 $navbar-link-gap: $size-9;
 $navbar-link-text-decoration: none;
-$navbar-link-padding: 1em 2em;
+$navbar-link-padding-block: 0.6rem;
+$navbar-link-bottom-border: 1px solid $clr-border;
 $navbar-link-background-color: $navbar-background-color;
-$navbar-link-background-color-hover: $color-neutral-800;
+$navbar-link-background-color-hover: $navbar-link-background-color;
 
 // navbar toggle
 
-$navbar-toggle-size: 1.2em;
+$navbar-toggle-icon-size: $size-4;
 $navbar-toggle-padding: $size-2;
 $navbar-toggle-color: $navbar-color;
 $navbar-toggle-background: transparent;
-$navbar-toggle-border: 2px solid currentColor;
+$navbar-toggle-border: 1px solid $clr-border;
 $navbar-toggle-border-radius: $border-radius-1;
 
-$navbar-toggle-color-hover: $color-neutral-000;
-$navbar-toggle-background-hover: $color-neutral-800;
+$navbar-toggle-color-hover: $navbar-link-color-hover;
+$navbar-toggle-background-hover: $navbar-link-background-color-hover;
 
 // site footer
-$footer-background-color: $color-primary-300;
-$footer-text-color: $color-primary-900;
-$footer-link-color: $color-neutral-100;
-$footer-link-color-hover: $color-primary-200;
+$footer-background-color: $color-background-default;
+$footer-text-color: $color-text-default;
+$footer-link-color: $footer-text-color;
+$footer-link-color-hover: $footer-text-color;
 $footer-link-text-decoration: none;
 
 // buttons
@@ -113,38 +116,25 @@ $button-text-transform: uppercase;
 $button-padding: 0.75em 2em;
 $button-border: 0;
 $button-border-radius: $border-radius-1;
+$button-color: $body-text-color;
+$button-background: $body-background-color;
 
-$button-accent-color: $color-neutral-100;
-$button-accent-background: $color-accent-400;
-$button-accent-color-hover: $color-neutral-100;
-$button-accent-background-hover: $color-accent-500;
-$button-primary-color: $color-neutral-100;
-$button-primary-background: $color-primary-700;
-$button-primary-color-hover: $color-neutral-100;
-$button-primary-background-hover: $color-primary-800;
+$button-primary-color: $clr-on-action;
+$button-primary-background: $clr-action;
+$button-primary-color-hover: $clr-on-action;
+$button-primary-background-hover: $clr-action-hover;
+$button-outline-color: $clr-action;
+$button-outline-background: $color-background-default;
+$button-outline-color-hover: $clr-on-action;
+$button-outline-background-hover: $clr-action;
 
 // cards
 $card-flow-spacing: $size-2;
 $card-padding: $size-8;
 $card-shadow: $box-shadow-1;
 $card-border-radius: $border-radius-2;
-$card-background-default: $color-primary-100;
+$card-background-default: $clr-surface;
 $card-color-default: $body-text-color;
 $card-heading-color-default: $card-color-default;
 
 // forms
-// $form-label-color: $body-text-color;
-// $form-label-font-family: $body-font-family;
-// $form-label-font-weight: $font-weight-bold;
-// $form-label-font-size: $body-font-size;
-
-// $form-input-color: $body-text-color;
-// $form-input-background-color: $color-neutral-100;
-// $form-input-border-default: 3px solid $color-primary-200;
-// $form-input-border-focus: 3px solid $color-primary-400;
-// $form-input-padding: $size-3;
-// $form-input-border-radius: $border-radius-1;
-
-// $form-placeholder-color: $color-primary-300;
-
-// $form-group-spacing: 0.5rem;
