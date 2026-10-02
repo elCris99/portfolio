@@ -2,27 +2,26 @@
 
 .navbar-shell {
   position: relative;
-  isolation: isolate;
   z-index: 10;
 }
 
 .navbar {
-  color: $navbar-color;
-  background-color: $navbar-background-color;
-  padding: $navbar-padding;
   position: relative;
   z-index: 2;
-  @include mq("large") {
-    padding: 0;
-  }
 
+  color: $navbar-color;
+  background-color: $navbar-background-color;
+  border-bottom: 1px solid $clr-border;
+
+  @include responsive-spacing("padding-block", $navbar-block-padding);
+
+  // Layout interno
   &__inner {
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: center;
 
     @include mq(large) {
-      display: grid;
       grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     }
   }
@@ -40,17 +39,49 @@
     }
   }
 
+  // Pannello del menu mobile
+  &__content-viewport {
+    position: absolute;
+    inset-block-start: 100%;
+    inset-inline: 0;
+    z-index: 1;
+    overflow-x: clip;
+
+    @include mq(large) {
+      position: static;
+      inset: auto;
+      display: contents;
+      overflow: visible;
+    }
+  }
+
   &__content {
-    display: none;
+    display: block;
+    background-color: $navbar-background-color;
+
+    transform: translateX(100%);
+    visibility: hidden;
+    pointer-events: none;
+    transition: none;
 
     .navbar[data-menu-open="true"] & {
-      position: absolute;
-      inset-block-start: 100%;
-      inset-inline: 0;
-      z-index: 1;
+      transform: translateX(0);
+      visibility: visible;
+      pointer-events: auto;
 
-      display: block;
-      background-color: $navbar-background-color;
+      transition:
+        transform 300ms ease,
+        visibility 0s;
+    }
+
+    .navbar[data-menu-closing="true"] & {
+      transform: translateX(100%);
+      visibility: hidden;
+      pointer-events: none;
+
+      transition:
+        transform 300ms ease,
+        visibility 0s linear 300ms;
     }
 
     &-inner {
@@ -64,9 +95,14 @@
 
     @include mq(large) {
       display: contents;
+      transform: none;
+      visibility: visible;
+      pointer-events: auto;
+      transition: none;
     }
   }
 
+  // Link di navigazione
   &__links {
     display: flex;
     flex-direction: column;
@@ -83,12 +119,15 @@
 
     a {
       @include text-role("menu-nav");
-      color: $navbar-link-color;
-      text-decoration: $navbar-link-text-decoration;
-      padding-block: $navbar-link-padding-block;
-      border-bottom: $navbar-link-bottom-border;
+
       display: flex;
       align-items: center;
+
+      color: $navbar-link-color;
+      text-decoration: $navbar-link-text-decoration;
+      border-bottom: $navbar-link-bottom-border;
+
+      @include responsive-spacing("padding-block", $navbar-link-padding-block);
 
       @include mq("large") {
         border-bottom: none;
@@ -102,20 +141,25 @@
     }
   }
 
+  // Azioni: CV e tema
   &__actions {
-    grid-column: 3;
-    justify-self: end;
-
     display: flex;
     justify-content: space-between;
-    padding-block: $navbar-link-padding-block * 2;
+    align-items: center;
+    grid-column: 3;
+    justify-self: end;
+    gap: $font-size-600;
+
+    @include responsive-spacing("padding-block", $navbar-actions-padding-block);
   }
 
+  // Pulsante hamburger
   &__menu-toggle {
     @include text-role(nav);
 
     display: block;
     padding: $navbar-toggle-padding;
+
     color: $navbar-toggle-color;
     background-color: $navbar-toggle-background;
     border: $navbar-toggle-border;
@@ -148,6 +192,59 @@
     }
   }
 
+  // Switch del tema
+  &__theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    background: transparent;
+
+    color: inherit;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 3px solid $clr-focus;
+      outline-offset: 3px;
+    }
+
+    &[aria-checked="true"] {
+      .navbar__theme-track {
+        background-color: $clr-action;
+      }
+
+      .navbar__theme-thumb {
+        transform: translateX(1.25rem);
+      }
+    }
+  }
+
+  &__theme-track {
+    display: flex;
+    align-items: center;
+    inline-size: 2.75rem;
+    block-size: 1.5rem;
+
+    box-sizing: border-box;
+    padding: $size-1;
+    border-radius: 999px;
+    background-color: $clr-border;
+
+    transition: background-color 180ms ease;
+  }
+
+  &__theme-thumb {
+    display: block;
+    inline-size: $size-4;
+    block-size: $size-4;
+    border-radius: 50%;
+    background-color: $clr-background;
+
+    transition: transform 180ms ease;
+  }
+
+  // Overlay del menu mobile
   &__overlay {
     position: fixed;
     inset: 0;
@@ -176,9 +273,28 @@
   }
 }
 
+// Link per scaricare il CV
+.download-cv {
+  display: flex;
+  align-items: center;
+  color: $navbar-link-color;
+
+  @include text-role("label");
+
+  @include mq("large") {
+    text-underline-offset: 0.4rem;
+  }
+}
+
+// Rispetta la preferenza per ridurre le animazioni
 @media (prefers-reduced-motion: reduce) {
   .navbar__content,
-  .navbar__overlay {
+  .navbar[data-menu-open="true"] .navbar__content,
+  .navbar[data-menu-closing="true"] .navbar__content,
+  .navbar__overlay,
+  .navbar-shell[data-menu-open="true"] .navbar__overlay,
+  .navbar__theme-track,
+  .navbar__theme-thumb {
     transition: none;
   }
 }

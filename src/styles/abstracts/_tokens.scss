@@ -74,12 +74,12 @@ $container-max-width-wide: 75rem;
 
 $navbar-background-color: $color-background-default;
 $navbar-color: $color-text-default;
-$navbar-padding: $size-8 0;
+$navbar-block-padding: (
+  small: $size-8,
+  large: $size-6,
+);
+$navbar-bottom-border: 1px solid $clr-border;
 $navbar-margin: 0;
-
-$navbar-justification-small-screens: center;
-$navbar-justification-large-screens: space-between;
-$navbar-alignment: center;
 
 // navbar links
 
@@ -87,8 +87,15 @@ $navbar-link-color: $navbar-color;
 $navbar-link-color-hover: $clr-action;
 $navbar-link-gap: $size-9;
 $navbar-link-text-decoration: none;
-$navbar-link-padding-block: 0.6rem;
-$navbar-link-bottom-border: 1px solid $clr-border;
+$navbar-link-padding-block: (
+  small: $size-3,
+  large: 0rem,
+);
+$navbar-actions-padding-block: (
+  small: $size-3 * 2,
+  large: 0rem,
+);
+$navbar-link-bottom-border: $navbar-bottom-border;
 $navbar-link-background-color: $navbar-background-color;
 $navbar-link-background-color-hover: $navbar-link-background-color;
 
